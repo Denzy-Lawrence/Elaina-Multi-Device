@@ -16,7 +16,7 @@ _🌸 Elaina Multi Device_
 
 
 ```
-## For Termux/Ubuntu/SSH User
+# For Termux/Ubuntu/SSH User
 ```bash
 git clone https://github.com/flying-panties/Elaina-Multi-Device.git
 cd Elaina-Multi-Device
