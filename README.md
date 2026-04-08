@@ -14,3 +14,7 @@ Information notice before starting
 echo -e "$info"
 
 ```
+
+<p align="center">
+  <img src="https://count.getloli.com/get/@Denzy-Elaina-MD?theme=rule34" />
+</p>
