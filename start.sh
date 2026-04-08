@@ -15,11 +15,35 @@ fi
 
 echo "📦 Environment: $ENV"
 
+# CHECK & INSTALL FFMPEG
+echo "🎬 Checking ffmpeg..."
+
+if ! command -v ffmpeg &> /dev/null; then
+    echo "⚠️ ffmpeg not found, installing..."
+
+    if [[ "$ENV" == "termux" ]]; then
+        pkg update -y
+        pkg install ffmpeg -y
+    elif [[ "$ENV" == "vps" || "$ENV" == "pterodactyl" ]]; then
+        apt update -y
+        apt install ffmpeg -y
+    fi
+
+    # cek lagi
+    if ! command -v ffmpeg &> /dev/null; then
+        echo "❌ Gagal install ffmpeg"
+        exit 1
+    else
+        echo "✅ ffmpeg berhasil diinstall"
+    fi
+else
+    echo "✅ ffmpeg sudah terinstall"
+fi
+
 # TERMUX ONLY: REMOVE PROBLEMATIC MODULE
 if [[ "$ENV" == "termux" ]]; then
     echo "⚠️ Cleaning unsupported modules for Termux..."
 
-    # blacklist module
     BAD_MODULES=("wa-sticker-formatter" "sharp" "puppeteer" "canvas" "playwright")
 
     for mod in "${BAD_MODULES[@]}"; do
@@ -53,7 +77,6 @@ if [ $? -ne 0 ]; then
     if [[ "$ENV" == "termux" ]]; then
         echo "🧹 Retry dengan cleanup tambahan..."
 
-        # force hapus module bermasalah lagi
         rm -rf node_modules/sharp
         npm uninstall wa-sticker-formatter 2>/dev/null
 
@@ -70,5 +93,5 @@ if [ $? -ne 0 ]; then
 fi
 
 # RUN BOT
-echo "🚀 Menjalankan bot..."
+echo "🚀 Menjalankan Elaina Multi Device..."
 node index.js
